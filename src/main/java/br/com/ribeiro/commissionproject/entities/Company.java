@@ -1,7 +1,11 @@
 package br.com.ribeiro.commissionproject.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ribeiro.commissionproject.entities.enums.UserType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,6 +16,8 @@ public class Company extends User {
 	private String cnpj;
 	private Double tax;
 	private Double balance;
+	@OneToMany(mappedBy = "company")
+	private List<Product> products = new ArrayList<>();
 
 	public Company() {
 	}
@@ -45,6 +51,14 @@ public class Company extends User {
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void addProduct(Product product) {
+		products.add(product);
 	}
 
 }

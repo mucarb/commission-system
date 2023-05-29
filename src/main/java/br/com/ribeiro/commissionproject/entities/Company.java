@@ -18,6 +18,8 @@ public class Company extends User {
 	private Double balance;
 	@OneToMany(mappedBy = "company")
 	private List<Product> products = new ArrayList<>();
+	@OneToMany(mappedBy = "company")
+	private List<Sale> sales = new ArrayList<>();
 
 	public Company() {
 	}

@@ -1,9 +1,12 @@
 package br.com.ribeiro.commissionproject.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.ribeiro.commissionproject.entities.enums.UserType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,6 +16,8 @@ public class Client extends User {
 
 	private String cpf;
 	private LocalDate birthDate;
+	@OneToMany(mappedBy = "client")
+	private List<Sale> sales = new ArrayList<>();
 
 	public Client() {
 	}
@@ -37,6 +42,14 @@ public class Client extends User {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public List<Sale> getSales() {
+		return sales;
+	}
+
+	public void setSales(List<Sale> sales) {
+		this.sales = sales;
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.ribeiro.commissionproject.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
@@ -10,8 +11,12 @@ import org.springframework.stereotype.Service;
 import br.com.ribeiro.commissionproject.entities.Client;
 import br.com.ribeiro.commissionproject.entities.Company;
 import br.com.ribeiro.commissionproject.entities.Product;
+import br.com.ribeiro.commissionproject.entities.Sale;
+import br.com.ribeiro.commissionproject.entities.SaleItem;
 import br.com.ribeiro.commissionproject.entities.User;
 import br.com.ribeiro.commissionproject.repositories.ProductRepository;
+import br.com.ribeiro.commissionproject.repositories.SaleItemRepository;
+import br.com.ribeiro.commissionproject.repositories.SaleRepository;
 import br.com.ribeiro.commissionproject.repositories.UserRepository;
 
 @Service
@@ -21,6 +26,10 @@ public class DBService {
 	private UserRepository userRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private SaleRepository saleRepository;
+	@Autowired
+	private SaleItemRepository saleItemRepository;
 
 	public void instantiateTestDatabase() {
 		User u1 = new User(null, "Rodrigo Alves", "admin.alves", "123456");
@@ -43,6 +52,26 @@ public class DBService {
 		Product pr7 = new Product(null, "Pepsi Cola 330ml", 3, 3.5, co3);
 		Product pr8 = new Product(null, "Café Expresso", 10, 2.5, co3);
 		productRepository.saveAll(Arrays.asList(pr1, pr2, pr3, pr4, pr5, pr6, pr7, pr8));
+		
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		Sale sa1 = new Sale(null, co1.getTax(), LocalDateTime.parse("02/09/2022 15:01:42", formatter1), cl1, co1);
+		Sale sa2 = new Sale(null, co3.getTax(), LocalDateTime.parse("22/12/2022 09:41:22", formatter1), cl1, co3);
+		Sale sa3 = new Sale(null, co3.getTax(), LocalDateTime.parse("27/12/2022 12:59:51", formatter1), cl2, co3);
+		Sale sa4 = new Sale(null, co2.getTax(), LocalDateTime.parse("18/03/2023 10:01:09", formatter1), cl2, co2);
+		Sale sa5 = new Sale(null, co1.getTax(), LocalDateTime.parse("19/04/2023 19:11:34", formatter1), cl2, co1);
+		saleRepository.saveAll(Arrays.asList(sa1, sa2, sa3, sa4, sa5));
+
+		SaleItem si1 = new SaleItem(sa1, pr2, 2, 150.0);
+		SaleItem si2 = new SaleItem(sa1, pr3, 1, 170.0);
+		SaleItem si3 = new SaleItem(sa2, pr6, 2, 5.0);
+		SaleItem si4 = new SaleItem(sa2, pr8, 1, 2.5);
+		SaleItem si5 = new SaleItem(sa3, pr6, 1, 5.0);
+		SaleItem si6 = new SaleItem(sa3, pr7, 1, 3.5);
+		SaleItem si7 = new SaleItem(sa4, pr4, 1, 128.9);
+		SaleItem si8 = new SaleItem(sa5, pr1, 1, 859.0);
+		SaleItem si9 = new SaleItem(sa5, pr2, 3, 150.0);
+		SaleItem si10 = new SaleItem(sa5, pr3, 1, 170.0);
+		saleItemRepository.saveAll(Arrays.asList(si1, si2, si3, si4, si5, si6, si7, si8, si9, si10));
 	}
 
 }

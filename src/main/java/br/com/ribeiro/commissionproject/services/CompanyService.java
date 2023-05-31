@@ -19,5 +19,10 @@ public class CompanyService {
 		List<Company> result = repo.findAll();
 		return result.stream().map(x -> new CompanyMinDTO(x)).toList();
 	}
+
+	public CompanyMinDTO findById(Long id) {
+		Company result = repo.findById(id).get();
+		return new CompanyMinDTO(result);
+	}
 	
 }

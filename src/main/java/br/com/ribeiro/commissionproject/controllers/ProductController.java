@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ribeiro.commissionproject.dto.CompanyDTO;
-import br.com.ribeiro.commissionproject.services.CompanyService;
+import br.com.ribeiro.commissionproject.dto.ProductDTO;
+import br.com.ribeiro.commissionproject.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/companies")
-public class CompanyController {
+@RequestMapping(value = "/products")
+public class ProductController {
 	
 	@Autowired
-	private CompanyService service;
+	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<List<CompanyDTO>> findAll(){
-		List<CompanyDTO> result = service.findAll();
+	public ResponseEntity<List<ProductDTO>> findAll(){
+		List<ProductDTO> result = service.findAll();
 		return ResponseEntity.ok().body(result);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CompanyDTO> findById(@PathVariable Long id){
-		CompanyDTO result = service.findById(id);
+	public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+		ProductDTO result = service.findById(id);
 		return ResponseEntity.ok().body(result);
 	}
 	

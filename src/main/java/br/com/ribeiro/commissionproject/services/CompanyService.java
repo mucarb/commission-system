@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ribeiro.commissionproject.dto.CompanyMinDTO;
+import br.com.ribeiro.commissionproject.dto.CompanyDTO;
 import br.com.ribeiro.commissionproject.entities.Company;
 import br.com.ribeiro.commissionproject.repositories.CompanyRepositoy;
 
@@ -15,14 +15,14 @@ public class CompanyService {
 	@Autowired
 	private CompanyRepositoy repo;
 
-	public List<CompanyMinDTO> findAll() {
+	public List<CompanyDTO> findAll() {
 		List<Company> result = repo.findAll();
-		return result.stream().map(x -> new CompanyMinDTO(x)).toList();
+		return result.stream().map(x -> new CompanyDTO(x)).toList();
 	}
 
-	public CompanyMinDTO findById(Long id) {
+	public CompanyDTO findById(Long id) {
 		Company result = repo.findById(id).get();
-		return new CompanyMinDTO(result);
+		return new CompanyDTO(result);
 	}
 	
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ribeiro.commissionproject.dto.CompanyDTO;
+import br.com.ribeiro.commissionproject.dto.ProductMinDTO;
 import br.com.ribeiro.commissionproject.services.CompanyService;
+import br.com.ribeiro.commissionproject.services.ProductService;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -18,6 +20,9 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyService service;
+
+	@Autowired
+	private ProductService productService;
 	
 	@GetMapping
 	public ResponseEntity<List<CompanyDTO>> findAll(){
@@ -28,6 +33,12 @@ public class CompanyController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<CompanyDTO> findById(@PathVariable Long id){
 		CompanyDTO result = service.findById(id);
+		return ResponseEntity.ok().body(result);
+	}
+
+	@GetMapping(value = "/{companyId}/products")
+	public ResponseEntity<List<ProductMinDTO>> findByCompany(@PathVariable Long companyId){
+		List<ProductMinDTO> result = productService.findByCompany(companyId);
 		return ResponseEntity.ok().body(result);
 	}
 	
